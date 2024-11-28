@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Sensor Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #modal1 {
+            display: none; /* Hidden initially */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background overlay */
+            justify-content: center;
+            align-items: center;
+        }
+        #modal1 img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        #modal2 {
+            display: none; /* Hidden initially */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background overlay */
+            justify-content: center;
+            align-items: center;
+        }
+        #modal2 img {
+            max-width: 70%;
+            max-height: 70%;
+        }
+
+        #closeModal1 {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #closeModal2 {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>  
+    <h1>Blockchain Sensor Data</h1>
+
+    <h2>Plot of Data Tampering</h2>
+    <a href="#" onclick="openModal1()">Click here to view the plot</a>
+
+    <h2>Plot of Records Comparision</h2>
+    <a href="#" onclick="openModal2()">Click here to view the plot</a>
+
+    <h2>Sensor Data Table</h2>
+    <div>
+        {{ table_data | safe }}
+    </div>
+    
+    <div id="modal1">
+        <span id="closeModal1">&times;</span>
+        <img id="plotImage" src="{{ url_for('plot1') }}" alt="Tampering Comparison Plot">
+    </div>
+
+    <div id="modal2">
+        <span id="closeModal2">&times;</span>
+        <img id="plotImage" src="{{ url_for('plot2') }}" alt="Record Comparison Plot">
+    </div>
+
+    <script>
+        function openModal1() {
+            document.getElementById('modal1').style.display = 'flex'; // Open modal
+        }
+
+        function openModal2() {
+            document.getElementById('modal2').style.display = 'flex'; // Open modal
+        }
+
+        // Close modal when close button is clicked
+        document.getElementById('closeModal1').onclick = function() {
+            document.getElementById('modal1').style.display = 'none';
+        }
+
+        document.getElementById('closeModal2').onclick = function() {
+            document.getElementById('modal2').style.display = 'none';
+        }
+
+        // Close modal if user clicks outside the image
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal1')) {
+                document.getElementById('modal1').style.display = 'none';
+            }
+            else if (event.target == document.getElementById('modal2')) {
+                document.getElementById('modal2').style.display = 'none'; // Close second modal
+            }
+        }
+    </script>
+</body>
+</html>
